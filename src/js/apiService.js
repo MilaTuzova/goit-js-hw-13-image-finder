@@ -21,7 +21,7 @@ const PARAMETERS = {
 // }
 
 async function fetchCard(seachCard) {
-    const response = await fetch(`${BASE_URL}/?key=${KEY}&${PARAMETERS}&page=2&per_page=20&q=${seachCard}`);
+    const response = await fetch(`${BASE_URL}/?key=${KEY}&${PARAMETERS}&page=1&per_page=20&q=${seachCard}`);
     const searchCards = await response.json();
     console.log(searchCards)
     return searchCards;

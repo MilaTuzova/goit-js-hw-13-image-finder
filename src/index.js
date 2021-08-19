@@ -9,6 +9,7 @@ import getRefs from './js/get-refs';
 const refs = getRefs();
 
 console.log(refs.searchForm);
+console.log(refs.button);
 
 refs.searchForm.addEventListener('submit', onSearch);
 
@@ -26,7 +27,9 @@ function onSearch(e) {
         .finally(() => form.reset());
 }
 
-
+function onSearchMore() {
+    console.log('search more')
+}
 
 function renderCard(cards) {
     // console.dir(cards);
@@ -38,10 +41,14 @@ function renderCard(cards) {
     // console.log(hitsOfWords);
     if (hitsOfWords === 0) {
         Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');
+        refs.button.classList.add('is-hidden')
     }
     if (hitsOfWords > 1) {
         Notiflix.Notify.info(`Hooray! We found ${totalHits} images.`);
+        refs.button.classList.remove('is-hidden')
+        refs.button.addEventListener('click', onSearchMore);
     }
+
 
 }
 
