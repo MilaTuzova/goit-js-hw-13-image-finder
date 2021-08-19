@@ -7,17 +7,24 @@ const PARAMETERS = {
 }
 
 
-function fetchCard(seachCard) {
-    return fetch(`${BASE_URL}/?key=${KEY}&${PARAMETERS}&page=2&per_page=12&q=${seachCard}`)
-        .then(response => {
-            // ловим ошибку //
-            if (!response.ok) {
-                return Promise.reject(response.status)
-                    // throw new Error(response.status);
-            }
-            return response.json();
-        })
+// function fetchCard(seachCard) {
+//     return fetch(`${BASE_URL}/?key=${KEY}&${PARAMETERS}&page=2&per_page=40&q=${seachCard}`)
+//         .then(response => {
+//             // ловим ошибку //
+//             if (!response.ok) {
+//                 return Promise.reject(response.status)
+//                     // throw new Error(response.status);
+//             }
+//             return response.json();
+//         })
 
+// }
+
+async function fetchCard(seachCard) {
+    const response = await fetch(`${BASE_URL}/?key=${KEY}&${PARAMETERS}&page=2&per_page=20&q=${seachCard}`);
+    const searchCards = await response.json();
+    console.log(searchCards)
+    return searchCards;
 }
 
 export default { fetchCard }

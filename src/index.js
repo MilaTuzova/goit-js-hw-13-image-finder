@@ -16,7 +16,7 @@ function onSearch(e) {
     e.preventDefault();
 
     const form = e.currentTarget;
-    //    console.log(form.elements);
+    console.log(form.elements);
 
     const searchQuery = form.elements.searchQuery.value;
 
@@ -26,19 +26,32 @@ function onSearch(e) {
         .finally(() => form.reset());
 }
 
+
+
 function renderCard(cards) {
-    console.log(cards)
+    // console.dir(cards);
     const markup = cardTpl(cards);
     refs.cardContainer.innerHTML = markup;
-    console.log(markup)
+    const hitsOfWords = cards.hits.length;
+    const totalHits = cards.total;
+    // console.log(totalHits);
+    // console.log(hitsOfWords);
+    if (hitsOfWords === 0) {
+        Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');
+    }
+    if (hitsOfWords > 1) {
+        Notiflix.Notify.info(`Hooray! We found ${totalHits} images.`);
+    }
 
+}
 
-
+function onMessageWord() {
+    console.log('Error')
 }
 
 function onFetchError(error) {
     console.log(error);
-    Notiflix.Notify.failure('Oops!!!!');
+    Notiflix.Notify.failure('Error');
     refs.searchBox.value = '';
 }
 
