@@ -1,12 +1,8 @@
 import './sass/main.scss';
 import Notiflix from "notiflix";
-import debounce from 'lodash.debounce';
-// import axios from 'axios';
 import cardTpl from './templates/card.hbs';
 import NewApiservice from './js/apiService';
 import { getRefs } from './js/get-refs';
-
-// const DEBOUNCE_DELAY = 1000;
 
 const API = new NewApiservice();
 const refs = getRefs();
@@ -19,28 +15,18 @@ refs.searchForm.addEventListener('submit', onSearch);
 refs.searchForm.addEventListener('click', clearInput);
 refs.button.addEventListener('click', onSearchMore);
 
-
 function onSearch(e) {
-
     e.preventDefault();
-
-
-
-    // API.searchQuery = wordInForm;
 
     API.searchQuery = e.currentTarget.elements.searchQuery.value;
     if (API.searchQuery.trim() === '') {
-        // refs.searchForm.reset();
-        // window.location.hrefs();
+
         Notiflix.Notify.failure('UPS!!! INCORRECT REQUEST! Try again!!!');
 
-
     } else {
-
         API.resetPage();
         fetchCards()
     }
-
 }
 
 // fetch function---------------
@@ -60,7 +46,7 @@ function renderCard(cards) {
     const totalHits = cards.total;
     const currentPage = API.page;
     const totalOnPage = API.per_page;
-    console.log(totalHits);
+    // console.log(totalHits);
     // console.log(currentPage);
     // console.log(totalOnPage);
 
@@ -82,9 +68,6 @@ function renderCard(cards) {
         Notiflix.Notify.failure(`We're sorry, but you 've reached the end of search results.`)
     }
 
-
-
-
 }
 
 function onFetchError(error) {
@@ -97,17 +80,20 @@ function onFetchError(error) {
 //     alert('Упс, что-то пошло не так!');
 // }
 
+
+
 // Button On Search MORE-----------------
+
 function onSearchMore() {
-    console.log('search more')
-        // API.incrementPage();
-    console.log(API.page);
+    // console.log(API.page);
     // console.log(API.per_page);
-    fetchCards()
+    fetchCards();
+
 }
 
 function clearInput() {
     // refs.input.value = '';
     refs.button.classList.add('is-hidden')
     refs.cardContainer.innerHTML = '';
+
 }
