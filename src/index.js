@@ -19,19 +19,22 @@ refs.button.addEventListener('click', onSearchMore);
 function onSearch(e) {
     e.preventDefault();
 
-    // const wordInForm = e.currentTarget.elements.searchQuery.value;
-    // console.log(wordInForm);
+    const wordInForm = e.currentTarget.elements.searchQuery.value;
+    console.log(wordInForm);
     // API.searchQuery = wordInForm;
 
     API.searchQuery = e.currentTarget.elements.searchQuery.value;
-    if (API.searchQuery.trim() === '') {
+    if (wordInForm.trim() == '') {
         // refs.searchForm.reset();
         // window.location.hrefs();
-        Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.')
+        Notiflix.Notify.failure('UPS!!! INCORRECT REQUEST! Try again!!!');
+
+
+    } else {
+        API.resetPage();
+        fetchCards()
     }
 
-    API.resetPage();
-    fetchCards()
 }
 
 function fetchCards() {
@@ -62,18 +65,14 @@ function renderCard(cards) {
         Notiflix.Notify.info(`Hooray! We found ${totalHits} images.`);
         refs.button.classList.remove('is-hidden')
         refs.button.addEventListener('click', onSearchMore);
+        if (hitsOfWords === totalHits) {
+            Notiflix.Notify.failure(`We'
+                re sorry, but you 've reached the end of search results.`)
+        }
     }
-    if (hitsOfWords === totalHits) {
-        Notiflix.Notify.failure(`We'
-            re sorry, but you 've reached the end of search results.`)
 
-    }
 
 }
-
-// function onMessageWord() {
-//     console.log('Error')
-// }
 
 function onFetchError(error) {
     console.log(error);
