@@ -1,3 +1,8 @@
+import axios from 'axios';
+// import {BASE_URL, KEY, PARAMETERS} from './constants'
+// const axios = require('axios');
+// const axios = require('axios').default;
+
 const BASE_URL = 'https://pixabay.com/api';
 const KEY = '22661367-29e263943b27fbc7c6f830e79';
 const PARAMETERS = {
@@ -6,25 +11,30 @@ const PARAMETERS = {
     safesearch: 'true',
 }
 
+export default class NewApiservice {
+    constructor() {
+        this.searchQuery = '';
+        this.page = 1;
+        this.per_page = 20;
+    }
+    async fetchCard() {
+        const response = await axios.get(`${BASE_URL}/?key=${KEY}&${PARAMETERS}&page=${this.page}&per_page=${this.per_page}&q=${this.searchQuery}`);
+        // console.log(response)
+        return response.data;
+    }
+    incrementPage() {
+        this.page += 1;
+    }
 
-// function fetchCard(seachCard) {
-//     return fetch(`${BASE_URL}/?key=${KEY}&${PARAMETERS}&page=2&per_page=40&q=${seachCard}`)
-//         .then(response => {
-//             // ловим ошибку //
-//             if (!response.ok) {
-//                 return Promise.reject(response.status)
-//                     // throw new Error(response.status);
-//             }
-//             return response.json();
-//         })
+    resetPage() {
+        this.page = 1;
+    }
 
-// }
+    // get query() {
+    //     return this.searchQuery;
+    // }
 
-async function fetchCard(seachCard) {
-    const response = await fetch(`${BASE_URL}/?key=${KEY}&${PARAMETERS}&page=1&per_page=20&q=${seachCard}`);
-    const searchCards = await response.json();
-    console.log(searchCards)
-    return searchCards;
+    // set query(newQuery) {
+    //     this.searchQuery = newQuery;
+    // }
 }
-
-export default { fetchCard }
