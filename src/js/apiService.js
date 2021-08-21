@@ -15,15 +15,19 @@ export default class NewApiservice {
     constructor() {
         this.searchQuery = '';
         this.page = 1;
-        this.per_page = 20;
+        this.per_page = 40;
     }
+
+    //  fetch request. AXIOS ----------------
     async fetchCard() {
         const response = await axios.get(`${BASE_URL}/?key=${KEY}&${PARAMETERS}&page=${this.page}&per_page=${this.per_page}&q=${this.searchQuery}`);
         // console.log(response)
         return response.data;
     }
+
     incrementPage() {
         this.page += 1;
+        console.log(this.page)
     }
 
     resetPage() {
